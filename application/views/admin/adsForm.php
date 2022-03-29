@@ -18,30 +18,23 @@ if ($action == 'update')
 						<input type="hidden" name="action" value="<?php echo $action ?>">
 
 						<div class="form-group row">
-							<label for="title" class="col-sm-3 col-form-label">Title</label>
+							<label for="name" class="col-sm-3 col-form-label">Nama</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" id="title" name="title" placeholder="Title">
+								<input type="text" class="form-control" id="name" name="name" placeholder="Nama">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="link" class="col-sm-3 col-form-label">Link</label>
+							<div class="col-sm">
+								<input type="text" class="form-control" id="link" name="link" placeholder="Link Iklan">
 							</div>
 						</div>
 
 						<div class="form-group row">
-							<label for="name" class="col-sm-3 col-form-label">Nama Reward</label>
+							<label for="imgAds" class="col-sm-3 ">Img Iklan</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" id="name" name="name" placeholder="Nama Reward">
-							</div>
-						</div>
-
-						<div class="form-group row">
-							<label for="point" class="col-sm-3 col-form-label">Jumlah Point</label>
-							<div class="col-sm">
-								<input type="text" class="form-control format-number" id="point" name="point" placeholder="Jumlah Point">
-							</div>
-						</div>
-
-						<div class="form-group row">
-							<label for="img" class="col-sm-3 ">Gambar Reward</label>
-							<div class="col-sm">
-								<input type="file" class="form-control-file" id="img" name="img">
+								<input type="file" class="form-control-file" id="imgAds" name="imgAds" accept=".gif,.jpg,.png,.jpeg">
+								<small>Disarankan menngunakan file gif</small>
 							</div>
 						</div>
 

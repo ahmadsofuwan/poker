@@ -13,299 +13,65 @@ class Admin extends MY_Controller
 			redirect(base_url('Auth'));
 		}
 	}
+
 	public function index()
 	{
 		$data['html']['title'] = 'Dasboard';
 		$this->template($data);
 	}
 
-	public function customerList()
+	public function adsList()
 	{
-		$tableName = 'customer';
+		$tableName = 'ads';
 		$join = array(
-			array('level', 'level.pkey=' . $tableName . '.levelkey', 'left'),
-		);
-
-		$dataList = $this->getDataRow($tableName, $tableName . '.*,level.name as levelname,level.img as levelimg', '', '', $join, 'name ASC');
-		$data['html']['title'] = 'List Customer';
-		$data['html']['dataList'] = $dataList;
-		$data['html']['tableName'] = $tableName;
-		$data['html']['form'] = get_class($this) . '/customer';
-		$data['url'] = 'admin/customerList';
-		$this->template($data);
-	}
-	public function customer($id = '')
-	{
-		$tableName = 'customer';
-		$tableDetail = '';
-		$baseUrl = get_class($this) . '/' . __FUNCTION__;
-		$detailRef = '';
-		$formData = array(
-			'pkey' => 'pkey',
-			'name' => 'name',
-		);
-		$formDetail = array();
-
-		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			if (empty($_POST['action'])) redirect(base_url($baseUrl . 'List'));
-			//validate form
-			$arrMsgErr = array();
-			if (empty($_POST['name']))
-				array_push($arrMsgErr, "Nama wajib Di isi");
-
-			$this->session->set_flashdata('arrMsgErr', $arrMsgErr);
-			//validate form
-			if (empty(count($arrMsgErr)))
-				switch ($_POST['action']) {
-					case 'add':
-						$defaultRank = $this->getDataRow('level', 'pkey', '', '', '', 'level.rankpoint ASC')[0]['pkey'];
-						$_POST['levelKey'] = $defaultRank;
-						$formData['levelkey'] = 'levelKey';
-						$formData['createon'] = 'sesionid';
-						$formData['createtimestamp'] = 'time';
-						$refkey = $this->insert($tableName, $this->dataForm($formData));
-						$this->insertDetail($tableDetail, $formDetail, $refkey);
-						redirect(base_url($baseUrl . 'List')); //wajib terakhir
-						break;
-					case 'update':
-						$formData['modifby'] = 'sesionid';
-						$formData['modiftimestamp'] = 'time';
-						$this->update($tableName, $this->dataForm($formData), array('pkey' => $_POST['pkey']));
-						$this->updateDetail($tableDetail, $formDetail, $detailRef, $id);
-						redirect(base_url($baseUrl . 'List'));
-						break;
-				}
-		}
-
-		if (!empty($id)) {
-			$dataRow = $this->getDataRow($tableName, '*', array('pkey' => $id), 1)[0];
-			$this->dataFormEdit($formData, $dataRow);
-		}
-
-		$data['html']['baseUrl'] = $baseUrl;
-		$data['html']['title'] = 'Input Data ' . __FUNCTION__;
-		$data['html']['err'] = $this->genrateErr();
-		$data['url'] = 'admin/' . __FUNCTION__ . 'Form';
-		$this->template($data);
-	}
-
-	public function depositList()
-	{
-		$tableName = 'deposit';
-		$dataList = $this->getDataRow($tableName, '* ,', '', '', '', 'name ASC');
-		$data['html']['title'] = 'List Deposit';
-		$data['html']['dataList'] = $dataList;
-		$data['html']['tableName'] = $tableName;
-		$data['html']['form'] = get_class($this) . '/deposit';
-		$data['url'] = 'admin/depositList';
-		$this->template($data);
-	}
-
-	public function deposit($id = '')
-	{
-		$tableName = 'deposit';
-		$tableDetail = '';
-		$baseUrl = get_class($this) . '/' . __FUNCTION__;
-		$detailRef = '';
-		$formData = array(
-			'pkey' => 'pkey',
-			'name' => 'name',
-			'createon' => 'createon',
-			'point' => array('point', 'number'),
-		);
-		$formDetail = array();
-
-		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			if (empty($_POST['action'])) redirect(base_url($baseUrl . 'List'));
-			//validate form
-			$arrMsgErr = array();
-			if (empty($_POST['name']))
-				array_push($arrMsgErr, "Nama wajib Di isi");
-			if (empty($_POST['point']))
-				array_push($arrMsgErr, "Point Deposit wajib Di isi");
-
-
-			$this->session->set_flashdata('arrMsgErr', $arrMsgErr);
-			//validate form
-			if (empty(count($arrMsgErr)))
-				switch ($_POST['action']) {
-					case 'add':
-						$refkey = $this->insert($tableName, $this->dataForm($formData));
-						$this->insertDetail($tableDetail, $formDetail, $refkey);
-						redirect(base_url($baseUrl . 'List')); //wajib terakhir
-						break;
-					case 'update':
-						$this->update($tableName, $this->dataForm($formData), array('pkey' => $_POST['pkey']));
-						$this->updateDetail($tableDetail, $formDetail, $detailRef, $id);
-						redirect(base_url($baseUrl . 'List'));
-						break;
-				}
-		}
-
-		if (!empty($id)) {
-			$dataRow = $this->getDataRow($tableName, '*', array('pkey' => $id), 1)[0];
-			$this->dataFormEdit($formData, $dataRow);
-		}
-
-		$data['html']['baseUrl'] = $baseUrl;
-		$data['html']['title'] = 'Input Data ' . __FUNCTION__;
-		$data['html']['err'] = $this->genrateErr();
-		$data['url'] = 'admin/' . __FUNCTION__ . 'Form';
-		$this->template($data);
-	}
-
-	public function depositTransactionList()
-	{
-		$tableName = 'deposit_transaction';
-
-		$join = array(
-			array('deposit', 'deposit.pkey=' . $tableName . '.depositkey', 'left'),
-			array('customer', 'customer.pkey=' . $tableName . '.customerkey', 'left'),
 			array('account', 'account.pkey=' . $tableName . '.createon', 'left'),
 			array('role', 'role.pkey=account.role', 'left'),
 		);
 		$select = '
 			' . $tableName . '.*,
-			deposit.name as depositname,
-			customer.name as customername,
 			account.name as createname,
 			account.role as createrole,
 			role.name as rolename,
 		';
 
-		$dataList = $this->getDataRow($tableName, $select, '', '', $join);
-		$data['html']['title'] = 'List Deposit';
-		$data['html']['dataList'] = $dataList;
-		$data['html']['tableName'] = $tableName;
-		$data['html']['form'] = get_class($this) . '/depositTransaction';
-		$data['url'] = 'admin/depositTransactionList';
-		$this->template($data);
-	}
-
-	public function depositTransaction($id = '')
-	{
-		$tableName = 'deposit_transaction';
-		$tableDetail = '';
-		$baseUrl = get_class($this) . '/' . __FUNCTION__;
-		$detailRef = '';
-		$formData = array(
-			'pkey' => 'pkey',
-			'customerkey' => 'customerKey',
-			'createon' => 'sesionid',
-			'depositkey' => 'depositKey',
-			'calculate' => 'calculate',
-			'totalpoint' => 'point',
-			'time' => 'time',
-			'note' => 'note',
-		);
-		$formDetail = array();
-
-		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			if (empty($_POST['action'])) redirect(base_url($baseUrl . 'List'));
-			//validate form
-			$arrMsgErr = array();
-			$point = $this->getDataRow('deposit', '*', array('pkey' => $_POST['depositKey']))[0]['point'];
-			$_POST['point'] = (int) $point * str_replace(",", "", $_POST['calculate']);
-			$this->session->set_flashdata('arrMsgErr', $arrMsgErr);
-			//validate form
-			if (empty(count($arrMsgErr)))
-				switch ($_POST['action']) {
-					case 'add':
-						$_POST['time'];
-						$refkey = $this->insert($tableName, $this->dataForm($formData));
-						$this->insertDetail($tableDetail, $formDetail, $refkey);
-
-						//update customer
-						$customerPoint = $this->getDataRow($tableName, 'SUM(totalpoint) as totalpoint', array('customerkey' => $_POST['customerKey']))[0]['totalpoint'];
-						$customerTempPoint = $this->getDataRow('customer', 'temppoint', array('pkey' => $_POST['customerKey']))[0]['temppoint'];
-						$customerRank = $this->getDataRow('level', 'pkey', array('rankpoint <=' => (int)$customerPoint + $_POST['point']), '1', '', '`level`.`rankpoint` DESC')[0]['pkey'];
-						$dataUpdateCustomer = array(
-							'point' => $customerPoint,
-							'temppoint' => $customerTempPoint + $_POST['point'],
-							'levelkey' => $customerRank,
-						);
-						$this->update('customer', $dataUpdateCustomer, array('pkey' => $_POST['customerKey']));
-						//update customer
-
-						redirect(base_url($baseUrl . 'List')); //wajib terakhir
-						break;
-					case 'update':
-						$_POST['time'];
-						$oldData = $this->getDataRow($tableName, '*', array('pkey' => $_POST['pkey']));
-						$this->update($tableName, $this->dataForm($formData), array('pkey' => $_POST['pkey']));
-						$this->updateDetail($tableDetail, $formDetail, $detailRef, $id);
-
-						//update customer
-						$customerPoint = $this->getDataRow($tableName, 'SUM(totalpoint) as totalpoint', array('customerkey' => $_POST['customerKey']))[0]['totalpoint'];
-						$customerTempPoint = $this->getDataRow('customer', 'temppoint', array('pkey' => $_POST['customerKey']))[0]['temppoint'];
-						$customerTempPoint = (int)$customerTempPoint - (int)$oldData[0]['totalpoint'];
-						$customerRank = $this->getDataRow('level', 'pkey', array('rankpoint <=' => (int)$customerPoint + $_POST['point']), '1', '', '`level`.`rankpoint` DESC')[0]['pkey'];
-						$dataUpdateCustomer = array(
-							'point' => $customerPoint,
-							'temppoint' => $customerTempPoint + $_POST['point'],
-							'levelkey' => $customerRank,
-						);
-						$this->update('customer', $dataUpdateCustomer, array('pkey' => $_POST['customerKey']));
-						//update customer
-
-
-						redirect(base_url($baseUrl . 'List'));
-						break;
-				}
-		}
-
-		if (!empty($id)) {
-			$dataRow = $this->getDataRow($tableName, '*', array('pkey' => $id), 1)[0];
-			$this->dataFormEdit($formData, $dataRow);
-		}
-		$selValDeposit = $this->getDataRow('deposit', '*', '', '', '', 'name ASC');
-		$selValCustomer = $this->getDataRow('customer', '*', '', '', '', 'name ASC');
-		$data['html']['selValCustomer'] = $selValCustomer;
-		$data['html']['selValDeposit'] = $selValDeposit;
-		$data['html']['baseUrl'] = $baseUrl;
-		$data['html']['title'] = 'Input Data Transaksi Deposit';
-		$data['html']['err'] = $this->genrateErr();
-		$data['url'] = 'admin/' . __FUNCTION__ . 'Form';
-		$this->template($data);
-	}
-
-	public function levelList()
-	{
-		$tableName = 'level';
-
-		$join = array();
-		$select = '
-			' . $tableName . '.*,
-		';
 
 		$dataList = $this->getDataRow($tableName, $select, '', '', $join);
-		$data['html']['title'] = 'List Level';
+		$data['html']['title'] = 'List Ads';
 		$data['html']['dataList'] = $dataList;
 		$data['html']['tableName'] = $tableName;
-		$data['html']['form'] = get_class($this) . '/level';
-		$data['url'] = 'admin/levelList';
+		$data['html']['form'] = get_class($this) . '/ads';
+		$data['url'] = 'admin/adsList';
 		$this->template($data);
 	}
 
-	public function level($id = '')
+	public function ads($id = '')
 	{
-		$tableName = 'level';
+		$tableName = 'ads';
 		$tableDetail = '';
 		$baseUrl = get_class($this) . '/' . __FUNCTION__;
 		$detailRef = '';
 		$formData = array(
 			'pkey' => 'pkey',
 			'name' => 'name',
-			'rankpoint' => array('rankPoint', 'number'),
+			'createon' => 'sesionid',
+			'time' => 'time',
+			'link' => 'link',
 		);
 		$formDetail = array();
 
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (empty($_POST['action'])) redirect(base_url($baseUrl . 'List'));
 			//validate form
+			$checkData = $this->getDataRow('situs', 'name', array('name' => $_POST['name']));
 			$arrMsgErr = array();
-			$point = $this->getDataRow('deposit', '*', array('pkey' => $_POST['depositKey']))[0]['point'];
-			$_POST['point'] = $point * str_replace(",", "", $_POST['calculate']);
+			if (empty($_POST['name']))
+				array_push($arrMsgErr, 'Nama Wajib Di isi');
+			if (!empty(count($checkData)))
+				array_push($arrMsgErr, 'Nama Situs Telah Digunakan silahkan pilih Nama lain');
+
+			if ($_POST['action'] == 'add')
+				if (empty($_FILES['imgAds']['name']))
+					array_push($arrMsgErr, "Gambar wajib Di isi");
 
 			$this->session->set_flashdata('arrMsgErr', $arrMsgErr);
 			//validate form
@@ -315,7 +81,7 @@ class Admin extends MY_Controller
 						$refkey = $this->insert($tableName, $this->dataForm($formData));
 						$this->insertDetail($tableDetail, $formDetail, $refkey);
 						$upload = array(
-							'postname' => 'logo',
+							'postname' => 'imgAds',
 							'tablename' => $tableName,
 							'colomname' => 'img',
 							'pkey' => $refkey,
@@ -326,14 +92,16 @@ class Admin extends MY_Controller
 					case 'update':
 						$this->update($tableName, $this->dataForm($formData), array('pkey' => $_POST['pkey']));
 						$this->updateDetail($tableDetail, $formDetail, $detailRef, $id);
-						$upload = array(
-							'postname' => 'logo',
-							'tablename' => $tableName,
-							'colomname' => 'img',
-							'pkey' => $_POST['pkey'],
-							'replace' => true
-						);
-						$this->uploadImg($upload);
+						if (!empty($_FILES['imgAds']['name'])) {
+							$upload = array(
+								'postname' => 'imgAds',
+								'tablename' => $tableName,
+								'colomname' => 'img',
+								'pkey' => $_POST['pkey'],
+								'replace' => true,
+							);
+							$this->uploadImg($upload);
+						}
 						redirect(base_url($baseUrl . 'List'));
 						break;
 				}
@@ -345,7 +113,128 @@ class Admin extends MY_Controller
 		}
 
 		$data['html']['baseUrl'] = $baseUrl;
-		$data['html']['title'] = 'Input Data Transaksi Deposit';
+		$data['html']['title'] = 'Input Data Iklan';
+		$data['html']['err'] = $this->genrateErr();
+		$data['url'] = 'admin/' . __FUNCTION__ . 'Form';
+		$this->template($data);
+	}
+
+	public function situsList()
+	{
+		$tableName = 'situs';
+		$join = array(
+			array('account', 'account.pkey=' . $tableName . '.createon', 'left'),
+			array('role', 'role.pkey=account.role', 'left'),
+		);
+		$select = '
+			' . $tableName . '.*,
+			account.name as createname,
+			account.role as createrole,
+			role.name as rolename,
+		';
+
+
+		$dataList = $this->getDataRow($tableName, $select, '', '', $join);
+		$data['html']['title'] = 'List Situs';
+		$data['html']['dataList'] = $dataList;
+		$data['html']['tableName'] = $tableName;
+		$data['html']['form'] = get_class($this) . '/situs';
+		$data['url'] = 'admin/situsList';
+		$this->template($data);
+	}
+
+	public function situs($id = '')
+	{
+		$tableName = 'situs';
+		$tableDetail = '';
+		$baseUrl = get_class($this) . '/' . __FUNCTION__;
+		$detailRef = '';
+		$formData = array(
+			'pkey' => 'pkey',
+			'name' => 'name',
+			'head' => 'head',
+			'createon' => 'sesionid',
+			'time' => 'time',
+			'country' => 'country',
+			'deposit' => array('minDeposit', 'number'),
+			'viadeposit' => 'viaDeposit',
+			'platform' => 'platform',
+			'content' => 'content',
+			'loginlink' => 'loginLink',
+			'registerlink' => 'registerLink',
+			'bonuslink' => 'bonusLink',
+			'promolink' => 'promoLink',
+		);
+		$formFile = array(
+			'logoimg' => 'logoImg',
+			'populerimg' => 'populerImg',
+			'bannerimg' => 'bannerImg',
+			'registerimg' => 'registerImg',
+			'bonusimg' => 'bonusImg',
+			'promoimg' => 'promoImg',
+		);
+
+		$formDetail = array();
+
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+			if (empty($_POST['action'])) redirect(base_url($baseUrl . 'List'));
+			//validate form
+			$arrMsgErr = array();
+			if (empty($_POST['name']))
+				array_push($arrMsgErr, 'Nama Wajib Di isi');
+			if (empty($_POST['content']))
+				array_push($arrMsgErr, 'Content Wajib Di isi');
+			if ($_POST['action'] == 'add')
+				if (empty($_FILES['logoImg']['name']) || empty($_FILES['bannerImg']['name']) || empty($_FILES['registerImg']['name']) || empty($_FILES['bonusImg']['name']) || empty($_FILES['promoImg']['name']) || empty($_FILES['populerImg']['name']))
+					array_push($arrMsgErr, "Semua Gambar wajib Di isi");
+
+			$this->session->set_flashdata('arrMsgErr', $arrMsgErr);
+			//validate form
+			if (empty(count($arrMsgErr)))
+				switch ($_POST['action']) {
+					case 'add':
+						$refkey = $this->insert($tableName, $this->dataForm($formData));
+						$this->insertDetail($tableDetail, $formDetail, $refkey);
+						foreach ($formFile as $formFileKey => $formFileValue) {
+							$upload = array(
+								'postname' => $formFileValue,
+								'tablename' => $tableName,
+								'colomname' => $formFileKey,
+								'pkey' => $refkey,
+								'loop' => $formFileKey,
+							);
+							$this->uploadImg($upload);
+						};
+						redirect(base_url($baseUrl . 'List')); //wajib terakhir
+						break;
+					case 'update':
+						$this->update($tableName, $this->dataForm($formData), array('pkey' => $_POST['pkey']));
+						$this->updateDetail($tableDetail, $formDetail, $detailRef, $id);
+						foreach ($formFile as $formFileKey => $formFileValue) {
+							if (!empty($_FILES[$formFileValue]['name'])) {
+								$upload = array(
+									'postname' => $formFileValue,
+									'tablename' => $tableName,
+									'colomname' => $formFileKey,
+									'pkey' => $_POST['pkey'],
+									'loop' => $formFileKey,
+									'replace' => true,
+								);
+								$this->uploadImg($upload);
+							}
+						};
+						redirect(base_url($baseUrl . 'List'));
+						break;
+				}
+		}
+
+		if (!empty($id)) {
+			$dataRow = $this->getDataRow($tableName, '*', array('pkey' => $id), 1)[0];
+			$this->dataFormEdit($formData, $dataRow);
+		}
+
+		$data['html']['baseUrl'] = $baseUrl;
+		$data['html']['title'] = 'Input Data Situs Website';
 		$data['html']['err'] = $this->genrateErr();
 		$data['url'] = 'admin/' . __FUNCTION__ . 'Form';
 		$this->template($data);
@@ -374,7 +263,6 @@ class Admin extends MY_Controller
 		$data['url'] = 'admin/headList';
 		$this->template($data);
 	}
-
 	public function head($id = '')
 	{
 		$tableName = 'head';
@@ -425,6 +313,7 @@ class Admin extends MY_Controller
 		$data['url'] = 'admin/' . __FUNCTION__ . 'Form';
 		$this->template($data);
 	}
+
 	public function bannerList()
 	{
 		$tableName = 'banner';
@@ -448,7 +337,6 @@ class Admin extends MY_Controller
 		$data['url'] = 'admin/bannerList';
 		$this->template($data);
 	}
-
 	public function banner($id = '')
 	{
 		$tableName = 'banner';
@@ -517,189 +405,6 @@ class Admin extends MY_Controller
 		$this->template($data);
 	}
 
-	public function rewardList()
-	{
-		$tableName = 'reward';
-		$join = array(
-			array('account', 'account.pkey=' . $tableName . '.createon', 'left'),
-			array('role', 'role.pkey=account.role', 'left'),
-		);
-		$select = '
-			' . $tableName . '.*,
-			account.name as createname,
-			account.role as createrole,
-			role.name as rolename,
-		';
-
-
-		$dataList = $this->getDataRow($tableName, $select, '', '', $join);
-		$data['html']['title'] = 'List Reward';
-		$data['html']['dataList'] = $dataList;
-		$data['html']['tableName'] = $tableName;
-		$data['html']['form'] = get_class($this) . '/reward';
-		$data['url'] = 'admin/rewardList';
-		$this->template($data);
-	}
-
-	public function reward($id = '')
-	{
-		$tableName = 'reward';
-		$tableDetail = '';
-		$baseUrl = get_class($this) . '/' . __FUNCTION__;
-		$detailRef = '';
-		$formData = array(
-			'pkey' => 'pkey',
-			'title' => 'title',
-			'name' => 'name',
-			'point' => array('point', 'number'),
-			'createon' => 'sesionid',
-			'time' => 'time',
-		);
-		$formDetail = array();
-
-		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			if (empty($_POST['action'])) redirect(base_url($baseUrl . 'List'));
-			//validate form
-			$arrMsgErr = array();
-			if (empty($_POST['name']))
-				array_push($arrMsgErr, 'Nama Wajib Di isi');
-			if (empty($_POST['title']))
-				array_push($arrMsgErr, 'Title Wajib Di isi');
-			if (empty($_POST['point']))
-				array_push($arrMsgErr, 'Point Wajib Di isi');
-			if ($_POST['action'] == 'add')
-				if (empty($_FILES['img']['name']))
-					array_push($arrMsgErr, "Gambar wajib Di isi");
-
-			$this->session->set_flashdata('arrMsgErr', $arrMsgErr);
-			//validate form
-			if (empty(count($arrMsgErr)))
-				switch ($_POST['action']) {
-					case 'add':
-						$refkey = $this->insert($tableName, $this->dataForm($formData));
-						$this->insertDetail($tableDetail, $formDetail, $refkey);
-						$upload = array(
-							'postname' => 'img',
-							'tablename' => $tableName,
-							'colomname' => 'img',
-							'pkey' => $refkey,
-						);
-						$this->uploadImg($upload);
-						redirect(base_url($baseUrl . 'List')); //wajib terakhir
-						break;
-					case 'update':
-						$this->update($tableName, $this->dataForm($formData), array('pkey' => $_POST['pkey']));
-						$this->updateDetail($tableDetail, $formDetail, $detailRef, $id);
-						$upload = array(
-							'postname' => 'img',
-							'tablename' => $tableName,
-							'colomname' => 'img',
-							'pkey' => $_POST['pkey'],
-							'replace' => true
-						);
-						$this->uploadImg($upload);
-						redirect(base_url($baseUrl . 'List'));
-						break;
-				}
-		}
-
-		if (!empty($id)) {
-			$dataRow = $this->getDataRow($tableName, '*', array('pkey' => $id), 1)[0];
-			$this->dataFormEdit($formData, $dataRow);
-		}
-
-		$data['html']['baseUrl'] = $baseUrl;
-		$data['html']['title'] = 'Input Data ' . __FUNCTION__;
-		$data['html']['err'] = $this->genrateErr();
-		$data['url'] = 'admin/' . __FUNCTION__ . 'Form';
-		$this->template($data);
-	}
-	public function linkList()
-	{
-		$tableName = 'link';
-		$join = array(
-			array('account', 'account.pkey=' . $tableName . '.createon', 'left'),
-			array('role', 'role.pkey=account.role', 'left'),
-		);
-		$select = '
-			' . $tableName . '.*,
-			account.name as createname,
-			account.role as createrole,
-			role.name as rolename,
-		';
-
-
-		$dataList = $this->getDataRow($tableName, $select, '', '', $join);
-		$data['html']['title'] = 'List Link';
-		$data['html']['dataList'] = $dataList;
-		$data['html']['tableName'] = $tableName;
-		$data['html']['form'] = get_class($this) . '/link';
-		$data['url'] = 'admin/linkList';
-		$this->template($data);
-	}
-
-	public function link($id = '')
-	{
-		$tableName = 'link';
-		$tableDetail = '';
-		$baseUrl = get_class($this) . '/' . __FUNCTION__;
-		$detailRef = '';
-		$formData = array(
-			'pkey' => 'pkey',
-			'name' => 'name',
-			'wa' => 'wa',
-			'in' => 'in',
-			'register' => 'register',
-			'claim' => 'claim',
-			'createon' => 'sesionid',
-			'time' => 'time',
-		);
-		$formDetail = array();
-
-		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			if (empty($_POST['action'])) redirect(base_url($baseUrl . 'List'));
-			//validate form
-			$arrMsgErr = array();
-			if (empty($_POST['name']))
-				array_push($arrMsgErr, 'Nama Wajib Di isi');
-			if (empty($_POST['wa']))
-				array_push($arrMsgErr, 'WhatsApp Wajib Di isi');
-			if (empty($_POST['in']))
-				array_push($arrMsgErr, 'Link masuk Wajib Di isi');
-			if (empty($_POST['register']))
-				array_push($arrMsgErr, 'Link Daftar Wajib Di isi');
-			if (empty($_POST['claim']))
-				array_push($arrMsgErr, 'Link Klaim Wajib Di isi');
-
-
-			$this->session->set_flashdata('arrMsgErr', $arrMsgErr);
-			//validate form
-			if (empty(count($arrMsgErr)))
-				switch ($_POST['action']) {
-					case 'add':
-						$refkey = $this->insert($tableName, $this->dataForm($formData));
-						$this->insertDetail($tableDetail, $formDetail, $refkey);
-						redirect(base_url($baseUrl . 'List')); //wajib terakhir
-						break;
-					case 'update':
-						$this->update($tableName, $this->dataForm($formData), array('pkey' => $_POST['pkey']));
-						$this->updateDetail($tableDetail, $formDetail, $detailRef, $id);
-						redirect(base_url($baseUrl . 'List'));
-						break;
-				}
-		}
-
-		if (!empty($id)) {
-			$dataRow = $this->getDataRow($tableName, '*', array('pkey' => $id), 1)[0];
-			$this->dataFormEdit($formData, $dataRow);
-		}
-
-		$data['html']['baseUrl'] = $baseUrl;
-		$data['html']['title'] = 'Input Data ' . __FUNCTION__;
-		$data['html']['err'] = $this->genrateErr();
-		$data['url'] = 'admin/' . __FUNCTION__ . 'Form';
-		$this->template($data);
-	}
 
 	public function contentList()
 	{
@@ -905,34 +610,30 @@ class Admin extends MY_Controller
 						break;
 				}
 				break;
-			case 'getDeposit':
-				$data = $this->getDataRow('deposit', '*', array('pkey' => $_POST['pkey']));
-				echo json_encode($data);
+			case 'statuslink':
+				$this->update('link', array('status' => '0'), array('status' => '1'));
+				$this->update('link', array('status' => '1'), array('pkey' => $_POST['pkey']));
+				break;
+			case 'statusAds':
+				$oldststus = $this->getDataRow('ads', 'status', array('pkey' => $_POST['pkey']));
+				$status = '1';
+				if ($oldststus[0]['status'] == '1')
+					$status = '0';
+				$this->update('ads', array('status' => $status), array('pkey' => $_POST['pkey']));
+				break;
+			case 'statusSitus':
+				$oldststus = $this->getDataRow('situs', 'status', array('pkey' => $_POST['pkey']));
+				$status = '1';
+				if ($oldststus[0]['status'] == '1')
+					$status = '0';
+				$this->update('situs', array('status' => $status), array('pkey' => $_POST['pkey']));
 				break;
 			case 'statusHead':
 				$this->update('head', array('status' => '0'), array('status' => '1'));
 				$this->update('head', array('status' => '1'), array('pkey' => $_POST['pkey']));
 				break;
-			case 'statuslink':
-				$this->update('link', array('status' => '0'), array('status' => '1'));
-				$this->update('link', array('status' => '1'), array('pkey' => $_POST['pkey']));
-				break;
-			case 'statusBanner':
-				$oldststus = $this->getDataRow('banner', 'status', array('pkey' => $_POST['pkey']));
-				$status = '1';
-				if ($oldststus[0]['status'] == '1')
-					$status = '0';
-				$this->update('banner', array('status' => $status), array('pkey' => $_POST['pkey']));
-				break;
-			case 'statusContent':
-				$oldststus = $this->getDataRow('content', 'status', array('pkey' => $_POST['pkey']));
-				$status = '1';
-				if ($oldststus[0]['status'] == '1')
-					$status = '0';
-				$this->update('content', array('status' => $status), array('pkey' => $_POST['pkey']));
-				break;
 			default:
-				echo 'action is not in the list';
+				echo  $_POST['action'] . ' action is not in the list';
 				break;
 		}
 	}

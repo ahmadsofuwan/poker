@@ -14,7 +14,8 @@ class MY_Controller extends CI_Controller
 
     public function template($data)
     {
-        $data['companyName'] = $this->getDataRow('profile_company', 'name', '', 1)[0]['name'];
+        $data['companyProfile'] = $this->getDataRow('profile_company', '*', '', 1);
+        $data['companyName'] = $data['companyProfile'][0]['name'];
         $this->load->view('template/base.php', $data);
     }
 
@@ -70,6 +71,8 @@ class MY_Controller extends CI_Controller
         } else {
             $data = array('dataFile' => $this->upload->data())['dataFile'];
             $filename = strtotime("now") . $data['file_ext'];
+            if (isset($param['loop']) && !empty($param['loop']))
+                $filename = strtotime("now") . $param['loop'] . $data['file_ext'];
             $target = './uploads/' . $filename;
             rename('./uploads/' . $data['file_name'], $target);
             $arrData = array(
@@ -197,7 +200,7 @@ class MY_Controller extends CI_Controller
             if (is_array($value))
                 $value = $value[0];
 
-                $_POST[$value] = $dataRow[$key];
+            $_POST[$value] = $dataRow[$key];
         }
         $_POST['action'] = 'update';
         return $data;
