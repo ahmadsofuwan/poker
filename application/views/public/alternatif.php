@@ -3,8 +3,8 @@
         <div class="col-sm-12">
             <div class="row">
                 <div class="col-sm-4 py-2"><a href="<?php echo base_url() ?>"><img src="<?php echo base_url('uploads/' . $situs['logoimg']) ?>" class="img-fluid" alt="Logo"></a></div>
-                <div class="col-sm-4 py-2"><a href="<?php echo $situs['loginlink'] ?>" class="btn btn-block text-white" style="background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);">Login</a></div>
-                <div class="col-sm-4 py-2"><a href="<?php echo $situs['registerlink'] ?>" class="btn btn-block text-white" style="background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);text-decoration: blink">Daftar</a></div>
+                <div class="col-sm-4 py-2"><a href="<?php echo $situs['loginlink'] ?>" class="btn btn-block text-white blink" style="background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);">Login</a></div>
+                <div class="col-sm-4 py-2"><a href="<?php echo $situs['registerlink'] ?>" class="btn btn-block text-white blink" style="background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);text-decoration: blink">Daftar</a></div>
             </div>
             <div class="row py-2">
                 <div class="col-sm-12 border border-warning text-center rounded"><b>SELAMAT DATANG DI LINK ALTERNATIF <?php echo strtoupper($situs['name']) ?></b></div>

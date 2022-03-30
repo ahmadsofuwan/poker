@@ -26,7 +26,7 @@
                             <div class="row">
                                 <div class="col-sm-12"><img src="<?php echo base_url('uploads/' . $situsValue['populerimg']) ?>" class="rounded mx-auto d-block" alt="IMG" style="max-width: 300px;"></div>
                                 <div class="col-sm-12 text-center py-3"><b>⭐<?php echo $situsValue['name'] ?>⭐</b></div>
-                                <div class="col-sm-12 text-center"><a href="<?php echo base_url('Alternatif/' . $situsValue['name']) ?>" class="btn text-center text-dark" style="background-color: yellow;">Login & Daftar</a></div>
+                                <div class="col-sm-12 text-center"><a href="<?php echo base_url('Alternatif/' . $situsValue['name']) ?>" class="btn text-center text-dark blink" style="background-color: yellow;">Login & Daftar</a></div>
                             </div>
                         </div>
                     <?php } ?>
@@ -42,7 +42,9 @@
         <h1 style="font-family: sans-serif;">KUMPULAN SITUS LASKAR138 ONLINE TERPERCAYA</h1>
     </div>
     <?php foreach ($situs as $situsKey => $situsValue) { ?>
-        <div class="col-sm-2"><a href="<?php echo base_url('Alternatif/' . $situsValue['name']) ?>" class="btn btn-block text-center text-dark" style="background-color: yellow;">⭐<?php echo $situsValue['name'] ?>⭐</a></div>
+        <?php $blink = '';
+        if ($situsValue['populerstatus'] == '1')  $blink = 'blink' ?>
+        <div class="col-sm-2"><a href="<?php echo base_url('Alternatif/' . $situsValue['name']) ?>" class="btn btn-block text-center text-dark <?php echo $blink ?>" style="background-color: yellow;">⭐<?php echo $situsValue['name'] ?>⭐</a></div>
     <?php } ?>
 </div>
 <div class="py-3"></div>

@@ -19,7 +19,7 @@ class Dashboard extends MY_Controller
 		$data['html']['banner'] = $banner;
 		$data['html']['head'] = $head;
 		$data['html']['dataCompany'] = $dataCompany;
-		$data['html']['title'] = 'Laskar138';
+		$data['html']['title'] = 'Gacor+';
 		$data['url'] = 'public/body';
 		$this->templatePublic($data);
 	}
