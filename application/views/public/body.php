@@ -71,5 +71,5 @@
     }
 </style>
 <div class="footer row">
-    <div class="col-sm-12 my-2">Powe By Laskar138</div>
+    <div class="col-sm-12 my-2">Power By Gacor+</div>
 </div>

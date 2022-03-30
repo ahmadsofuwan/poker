@@ -26,7 +26,6 @@ $role = $this->session->userdata('role');
                 <a class="collapse-item" href="<?= base_url('Admin/adsList') ?>">Iklan</a>
                 <a class="collapse-item" href="<?= base_url('Admin/situsList') ?>">Situs</a>
                 <a class="collapse-item" href="<?= base_url('Admin/headList') ?>">Head Seo</a>
-                <a class="collapse-item" href="<?= base_url('Admin/bannerList') ?>">Banner</a>
                 <a class="collapse-item" href="<?= base_url('Admin/contentList') ?>">Content</a>
             </div>
         </div>
