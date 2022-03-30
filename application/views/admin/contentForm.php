@@ -31,6 +31,20 @@ if ($action == 'update')
 							</div>
 						</div>
 
+						<div class="form-group row">
+							<label for="privacy" class="col-sm-3 col-form-label">Privasi</label>
+							<div class="col-sm">
+								<textarea class="form-control" id="privacy" name="privacy" rows="3"></textarea>
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label for="about" class="col-sm-3 col-form-label">Tentang Kami</label>
+							<div class="col-sm">
+								<textarea class="form-control" id="about" name="about" rows="3"></textarea>
+							</div>
+						</div>
+
 						<div class="form-group row mt-5">
 							<div class="col-sm">
 								<button type="submit" class="btn btn-primary btn-block">Submit</button>

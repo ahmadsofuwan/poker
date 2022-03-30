@@ -62,12 +62,10 @@ class Admin extends MY_Controller
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (empty($_POST['action'])) redirect(base_url($baseUrl . 'List'));
 			//validate form
-			$checkData = $this->getDataRow('situs', 'name', array('name' => $_POST['name']));
 			$arrMsgErr = array();
 			if (empty($_POST['name']))
 				array_push($arrMsgErr, 'Nama Wajib Di isi');
-			if (!empty(count($checkData)))
-				array_push($arrMsgErr, 'Nama Situs Telah Digunakan silahkan pilih Nama lain');
+
 
 			if ($_POST['action'] == 'add')
 				if (empty($_FILES['imgAds']['name']))
@@ -187,6 +185,11 @@ class Admin extends MY_Controller
 			if ($_POST['action'] == 'add')
 				if (empty($_FILES['logoImg']['name']) || empty($_FILES['bannerImg']['name']) || empty($_FILES['registerImg']['name']) || empty($_FILES['bonusImg']['name']) || empty($_FILES['promoImg']['name']) || empty($_FILES['populerImg']['name']))
 					array_push($arrMsgErr, "Semua Gambar wajib Di isi");
+
+			$checkData = $this->getDataRow('situs', 'name', array('name' => $_POST['name']));
+			if (count($checkData) > 1)
+				array_push($arrMsgErr, 'Nama Situs Telah Digunakan silahkan pilih Nama lain');
+
 
 			$this->session->set_flashdata('arrMsgErr', $arrMsgErr);
 			//validate form
@@ -441,6 +444,8 @@ class Admin extends MY_Controller
 			'createon' => 'sesionid',
 			'time' => 'time',
 			'content' => 'content',
+			'privacy' => 'privacy',
+			'about' => 'about',
 		);
 		$formDetail = array();
 
@@ -493,12 +498,14 @@ class Admin extends MY_Controller
 	{
 		if ($this->session->userdata('role') != '1')
 			redirect(base_url());
+		$tableName = 'account';
 		$join = array(
 			array('role', 'role.pkey=account.role', 'left'),
 		);
-		$dataList = $this->getDataRow('account', 'account.*, role.name as rolename', '', '', $join, 'name ASC');
+		$dataList = $this->getDataRow($tableName, 'account.*, role.name as rolename', '', '', $join, 'name ASC');
 		$data['html']['title'] = 'List Account';
 		$data['html']['dataList'] = $dataList;
+		$data['html']['tableName'] = $tableName;
 		$data['html']['form'] = get_class($this) . '/user';
 		$data['url'] = 'admin/userList';
 		$this->template($data);
@@ -627,6 +634,13 @@ class Admin extends MY_Controller
 				if ($oldststus[0]['status'] == '1')
 					$status = '0';
 				$this->update('situs', array('status' => $status), array('pkey' => $_POST['pkey']));
+				break;
+			case 'statusPopuler':
+				$oldststus = $this->getDataRow('situs', 'populerstatus', array('pkey' => $_POST['pkey']));
+				$status = '1';
+				if ($oldststus[0]['populerstatus'] == '1')
+					$status = '0';
+				$this->update('situs', array('populerstatus' => $status), array('pkey' => $_POST['pkey']));
 				break;
 			case 'statusHead':
 				$this->update('head', array('status' => '0'), array('status' => '1'));

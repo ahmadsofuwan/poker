@@ -2,24 +2,17 @@
 <html lang="en">
 
 <head>
-    <link rel="icon" href="<?php echo base_url('uploads/' . $dataCompany[0]['logo']) ?>">
-    <?php
-    foreach ($head as $headKey => $headValue) {
-        echo $headValue['html'];
-    }
-    ?>
+    <?php if (isset($dataCompany)) { ?>
+        <link rel="icon" href="<?php echo base_url('uploads/' . $dataCompany[0]['logo']) ?>">
+        <?php
+        foreach ($head as $headKey => $headValue) {
+            echo $headValue['html'];
+        }
+        ?>
+    <?php } ?>
     <style>
-        .barnds {
-            font-family: "Arial Black", Gadget, sans-serif;
-            font-size: 23px;
-            letter-spacing: -1px;
-            word-spacing: -1px;
-            color: #FFA20B;
-            font-weight: 700;
-            text-decoration: none solid rgb(68, 68, 68);
-            font-style: italic;
-            font-variant: normal;
-            text-transform: none;
+        html {
+            scroll-behavior: smooth !important;
         }
     </style>
 
@@ -46,26 +39,25 @@
 
 </head>
 
-<body id="page-top">
-    <nav class="navbar navbar-expand-lg text-white navbar-light" style="background-color: #54595F;">
-        <a class="navbar-brand" href="<?php echo base_url() ?>"><img src="<?php echo base_url('uploads/' . $dataCompany[0]['logo']) ?>" alt="Logo" style="width: 200px;"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<body id="page-top" style="background-color: #020024;">
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto text-white">
-                <li class="nav-item active">
-                    <!-- <a class="nav-link" href="<?php echo base_url() ?>">Home <span class="sr-only">(current)</span></a> -->
-                </li>
-            </ul>
-            <div class="form-inline my-2 my-lg-0 mr-3">
-                <a href="<?php echo $link['in'] ?>" class="btn text-white" style="background-color: #FF6900">MASUK</a>
-                <a href="<?php echo $link['register'] ?>" class="btn ml-2 text-white" style="background-color: #CF2E2E">Daftar</a>
+    <?php if (isset($dataCompany)) { ?>
+        <nav class="navbar navbar-expand-lg text-white navbar-light" style="background: linear-gradient(90deg, rgba(36,0,3,1) 0%, rgba(5,17,78,1) 0%, rgba(36,0,3,1) 100%);">
+            <a class="navbar-brand" href="<?php echo base_url() ?>"><img src="<?php echo base_url('uploads/' . $dataCompany[0]['logo']) ?>" alt="Logo" style="width: 200px;"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto text-white">
+                    <li class="nav-item active">
+                        <!-- <a class="nav-link" href="<?php echo base_url() ?>">Home <span class="sr-only">(current)</span></a> -->
+                    </li>
+                </ul>
+                <div class="form-inline my-2 my-lg-0 mr-3">
+                    <a href="#privacy" class="text-white scroll">Kebijakan Privasi</a>
+                    <a href="#about" class="ml-2 text-white scroll">Tentang Kami</a>
+                </div>
             </div>
-            <div class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Cari Akun Kamu" aria-label="Search" id="inputSearch">
-                <button class="btn btn-success my-2 my-sm-0" id="search">Cari</button>
-            </div>
-        </div>
-    </nav>
+        </nav>
+    <?php } ?>

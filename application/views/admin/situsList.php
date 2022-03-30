@@ -11,6 +11,7 @@
             <th scope="col">Dibuat Oleh</th>
             <th scope="col">Waktu</th>
             <th scope="col" class="text-center">Status</th>
+            <th scope="col" class="text-center">Status Populer</th>
             <th scope="col" class="text-center">Logo</th>
             <th scope="col" class="text-center">Action</th>
         </tr>
@@ -24,6 +25,7 @@
                 <td><?php echo  $value['createname'] . ' | ' . $value['rolename'] ?></td>
                 <td><?php echo  date("d / m / Y  H:i", $value['time']) ?></td>
                 <td class="text-center"><input type="checkbox" class="form-check-input" name='status' value="<?php echo  $value['pkey'] ?>" <?php if (!empty($value['status'])) echo 'checked' ?>></td>
+                <td class="text-center"><input type="checkbox" class="form-check-input" name='populer' value="<?php echo  $value['pkey'] ?>" <?php if (!empty($value['populerstatus'])) echo 'checked' ?>></td>
                 <td class="text-center">
                     <img src="<?php echo base_url('uploads/' . $value['logoimg']) ?>" class="rounded" alt="Logo" style="width: 80px;">
                 </td>
@@ -93,6 +95,28 @@
                 type: 'POST',
                 data: {
                     action: 'statusSitus',
+                    pkey: value
+                },
+            })
+            .done(function() {
+                console.log('success');
+            })
+            .fail(function() {
+                console.log('error');
+            })
+
+
+
+    })
+    $('tbody').find('[name=populer]').click(function() {
+        var obj = $(this);
+        var value = $(obj).val();
+        var arrCheckBox = $('tbody').find('input:checkbox');
+        $.ajax({
+                url: '<?= base_url('Admin/ajax') ?>',
+                type: 'POST',
+                data: {
+                    action: 'statusPopuler',
                     pkey: value
                 },
             })
