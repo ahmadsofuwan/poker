@@ -10,20 +10,20 @@
                 <div class="col-sm-12 border border-warning text-center rounded"><b>SELAMAT DATANG DI LINK ALTERNATIF <?php echo strtoupper($situs['name']) ?></b></div>
                 <div class="col-sm-4 py-3">
                     <div class="row">
-                        <div class="mt-3 col-sm-12 border border-warning rounded text-white" style="font-size: 30px;"><a href="<?php echo $situs['registerlink'] ?>"><img src="<?php echo base_url('uploads/' . $situs['registerimg']) ?>" class="img-fluid" alt="Logo" style="max-width: 70px;"> Daftar</a></div>
-                        <div class="mt-3 col-sm-12 border border-warning rounded text-white" style="font-size: 30px;"><a href="<?php echo $situs['bonuslink'] ?>"><img src="<?php echo base_url('uploads/' . $situs['bonusimg']) ?>" class="img-fluid" alt="Logo" style="max-width: 70px;"> Bonus</a></div>
-                        <div class="mt-3 col-sm-12 border border-warning rounded text-white" style="font-size: 30px;"><a href="<?php echo $situs['promolink'] ?>"><img src="<?php echo base_url('uploads/' . $situs['promoimg']) ?>" class="img-fluid" alt="Logo" style="max-width: 70px;"> Promosi</a></div>
+                        <div class="mt-3 col-sm-12 border border-warning rounded text-white" style="font-size: 30px;"><a href="<?php echo $situs['registerlink'] ?>"><img src="<?php echo base_url('uploads/' . $situs['registerimg']) ?>" class="img-fluid mr-3" alt="Logo" style="max-width: 70px;"> Daftar</a></div>
+                        <div class="mt-3 col-sm-12 border border-warning rounded text-white" style="font-size: 30px;"><a href="<?php echo $situs['bonuslink'] ?>"><img src="<?php echo base_url('uploads/' . $situs['bonusimg']) ?>" class="img-fluid mr-3" alt="Logo" style="max-width: 70px;"> Bonus</a></div>
+                        <div class="mt-3 col-sm-12 border border-warning rounded text-white" style="font-size: 30px;"><a href="<?php echo $situs['promolink'] ?>"><img src="<?php echo base_url('uploads/' . $situs['promoimg']) ?>" class="img-fluid mr-3" alt="Logo" style="max-width: 70px;"> Promosi</a></div>
                     </div>
                 </div>
                 <div class="col-sm-4 py-4"><img src="<?php echo base_url('uploads/' . $situs['bannerimg']) ?>" class="img-fluid w-100" alt="Logo"></div>
                 <div class="col-sm-4 mt-4 border border-warning">
                     <div class="row mr-2 ml-2">
-                        <div class="col-sm-12 border-success border-bottom mt-1">Nama:<?php echo $situs['name'] ?></div>
-                        <div class="col-sm-12 border-success border-bottom mt-1">Negara:<?php echo $situs['country'] ?></div>
-                        <div class="col-sm-12 border-success border-bottom mt-1">Minimal Deposit:<?php echo number_format($situs['deposit']) ?></div>
-                        <div class="col-sm-12 border-success border-bottom mt-1">Deposit Via:<?php echo $situs['viadeposit'] ?></div>
-                        <div class="col-sm-12 border-success border-bottom mt-1">Platform:<?php echo $situs['platform'] ?></div>
-                        <div class="col-sm-12 border-success border-bottom mt-1">Url:<?php echo base_url('Alternatif/' . $situs['name']) ?></div>
+                        <div class="col-sm-12 border-success border-bottom mt-1">Nama : <?php echo $situs['name'] ?></div>
+                        <div class="col-sm-12 border-success border-bottom mt-1">Negara : <?php echo $situs['country'] ?></div>
+                        <div class="col-sm-12 border-success border-bottom mt-1">Minimal Deposit : <?php echo number_format($situs['deposit']) ?></div>
+                        <div class="col-sm-12 border-success border-bottom mt-1">Deposit Via : <?php echo $situs['viadeposit'] ?></div>
+                        <div class="col-sm-12 border-success border-bottom mt-1">Platform : <?php echo $situs['platform'] ?></div>
+                        <div class="col-sm-12 border-success border-bottom mt-1">Url : <?php echo base_url('Alternatif/' . $situs['name']) ?></div>
                     </div>
                 </div>
                 <div class="col-sm-12 mt-5">

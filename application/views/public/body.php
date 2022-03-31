@@ -20,21 +20,36 @@
         </div>
         <div class="col-sm-12">
             <div class="row">
-                <?php foreach ($situs as $situsKey => $situsValue) { ?>
-                    <?php if ($situsValue['populerstatus'] == '1') { ?>
-                        <div class="col-sm-3">
-                            <div class="row">
-                                <div class="col-sm-12"><img src="<?php echo base_url('uploads/' . $situsValue['populerimg']) ?>" class="rounded mx-auto d-block" alt="IMG" style="max-width: 300px;"></div>
-                                <div class="col-sm-12 text-center py-3"><b>⭐<?php echo $situsValue['name'] ?>⭐</b></div>
-                                <div class="col-sm-12 text-center"><a href="<?php echo base_url('Alternatif/' . $situsValue['name']) ?>" class="btn text-center text-dark blink" style="background-color: yellow;">Login & Daftar</a></div>
-                            </div>
+                <?php
+                $mod = fmod(count($situsPopuler), 3);
+                $col = '';
+                echo is_infinite($mod);
+                if ($mod > 0)
+                    $col = 12 / $mod;
+                ?>
+
+
+                <?php for ($i = 0; $i < count($situsPopuler); $i++) { ?>
+                    <?php
+                    $colSm = 4;
+                    if (!is_infinite($mod)) {
+                        if ($i >= count($situsPopuler) - $mod)
+                            $colSm = $col;
+                    }
+                    ?>
+
+                    <div class="col-sm-<?php echo  $colSm ?> py-5">
+                        <div class="row">
+                            <div class="col-sm-12"><img src="<?php echo base_url('uploads/' . $situsPopuler[$i]['populerimg']) ?>" class="rounded mx-auto d-block" alt="IMG" style="max-width: 300px;"></div>
+                            <div class="col-sm-12 text-center py-3"><b>⭐<?php echo $situsPopuler[$i]['name'] ?>⭐</b></div>
+                            <div class="col-sm-12 text-center"><a href="<?php echo base_url('Alternatif/' . $situsPopuler[$i]['name']) ?>" class="btn text-center text-dark blink" style="background-color: yellow;">Login & Daftar</a></div>
                         </div>
-                    <?php } ?>
+                    </div>
                 <?php } ?>
             </div>
-
         </div>
     </div>
+</div>
 </div>
 <div class="py-3"></div>
 <div class="container py-5" style="background: linear-gradient(90deg, rgba(8,0,36,1) 0%, rgba(5,60,78,1) 50%, rgba(8,0,36,1) 100%);">
@@ -42,10 +57,19 @@
         <h1 style="font-family: sans-serif;">KUMPULAN SITUS GACOR+ ONLINE TERPERCAYA</h1>
     </div>
     <div class="row">
-        <?php foreach ($situs as $situsKey => $situsValue) { ?>
+        <?php
+        $mod = fmod(count($situsPopuler), 3);
+        $col = '';
+        echo is_infinite($mod);
+        if ($mod > 0)
+            $col = 12 / $mod;
+        ?>
+
+        <?php for ($i = 0; $i < count($situs); $i++) { ?>
             <?php $blink = '';
-            if ($situsValue['populerstatus'] == '1')  $blink = 'blink' ?>
-            <div class="col-sm-2 py-3"><a href="<?php echo base_url('Alternatif/' . $situsValue['name']) ?>" class="btn btn-block text-center text-dark <?php echo $blink ?>" style="background-color: yellow;">⭐<?php echo $situsValue['name'] ?>⭐</a></div>
+            if ($situs[$i]['populerstatus'] == '1')  $blink = 'blink'; ?>
+
+            <div class="col-sm-3 py-3"><a href="<?php echo base_url('Alternatif/' . $situs[$i]['name']) ?>" class="btn btn-block text-center text-dark <?php echo $blink ?>" style="background-color: yellow;">⭐<?php echo $situs[$i]['name'] ?>⭐</a></div>
         <?php } ?>
     </div>
 

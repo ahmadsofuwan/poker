@@ -12,7 +12,9 @@ class Dashboard extends MY_Controller
 		$content = $this->getDataRow('content', '*', array('status' => '1'));
 		$ads = $this->getDataRow('ads', '*', array('status' => '1'));
 		$situs = $this->getDataRow('situs', '*', array('status' => '1'));
+		$situsPopuler = $this->getDataRow('situs', '*', array('status' => '1', 'populerstatus' => '1',));
 
+		$data['html']['situsPopuler'] = $situsPopuler;
 		$data['html']['situs'] = $situs;
 		$data['html']['ads'] = $ads;
 		$data['html']['content'] = $content[0];
