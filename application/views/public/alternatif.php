@@ -20,7 +20,7 @@
                     <div class="row mr-2 ml-2">
                         <div class="col-sm-12 border-success border-bottom mt-1">Nama:<?php echo $situs['name'] ?></div>
                         <div class="col-sm-12 border-success border-bottom mt-1">Negara:<?php echo $situs['country'] ?></div>
-                        <div class="col-sm-12 border-success border-bottom mt-1">Minimal Deposit:<?php echo $situs['deposit'] ?></div>
+                        <div class="col-sm-12 border-success border-bottom mt-1">Minimal Deposit:<?php echo number_format($situs['deposit']) ?></div>
                         <div class="col-sm-12 border-success border-bottom mt-1">Deposit Via:<?php echo $situs['viadeposit'] ?></div>
                         <div class="col-sm-12 border-success border-bottom mt-1">Platform:<?php echo $situs['platform'] ?></div>
                         <div class="col-sm-12 border-success border-bottom mt-1">Url:<?php echo base_url('Alternatif/' . $situs['name']) ?></div>

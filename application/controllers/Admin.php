@@ -175,9 +175,10 @@ class Admin extends MY_Controller
 		$formDetail = array();
 
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			if (empty($_POST['action'])) redirect(base_url($baseUrl . 'List'));
 			//validate form
 			$arrMsgErr = array();
+
+			if (empty($_POST['action'])) redirect(base_url($baseUrl . 'List'));
 			if (empty($_POST['name']))
 				array_push($arrMsgErr, 'Nama Wajib Di isi');
 			if (empty($_POST['content']))
@@ -193,6 +194,7 @@ class Admin extends MY_Controller
 
 			$this->session->set_flashdata('arrMsgErr', $arrMsgErr);
 			//validate form
+
 			if (empty(count($arrMsgErr)))
 				switch ($_POST['action']) {
 					case 'add':
@@ -211,6 +213,8 @@ class Admin extends MY_Controller
 						redirect(base_url($baseUrl . 'List')); //wajib terakhir
 						break;
 					case 'update':
+						print_r($_POST);
+						die;
 						$this->update($tableName, $this->dataForm($formData), array('pkey' => $_POST['pkey']));
 						$this->updateDetail($tableDetail, $formDetail, $detailRef, $id);
 						foreach ($formFile as $formFileKey => $formFileValue) {

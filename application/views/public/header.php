@@ -10,6 +10,9 @@
         }
         ?>
     <?php } ?>
+    <?php if (isset($situs['head'])) {
+        echo $situs['head'];
+    } ?>
     <style>
         html {
             scroll-behavior: smooth !important;

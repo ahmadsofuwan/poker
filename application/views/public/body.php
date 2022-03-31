@@ -14,7 +14,7 @@
 </div>
 <div class="container py-5 rounded" style="background: linear-gradient(90deg, rgba(5,60,78,1) 0%, rgba(8,0,36,1) 50%, rgba(5,60,78,1) 100%);">
     <div class="row">
-        <div class="col-sm-12 text-center" style="color: #6f0000;font-weight: 1000;font-size: 50px;">LASKAR138</div>
+        <div class="col-sm-12 text-center" style="color: #6f0000;font-weight: 1000;font-size: 50px;">GACOR+</div>
         <div class="col-sm-12 text-center">
             <h2 class="py-3">SITUS JUDI POKER SLOT ONLINE PLAY PILIHAN TERBAIK</h2>
         </div>
@@ -39,13 +39,16 @@
 <div class="py-3"></div>
 <div class="container py-5" style="background: linear-gradient(90deg, rgba(8,0,36,1) 0%, rgba(5,60,78,1) 50%, rgba(8,0,36,1) 100%);">
     <div class="col-sm-12 text-center py-5">
-        <h1 style="font-family: sans-serif;">KUMPULAN SITUS LASKAR138 ONLINE TERPERCAYA</h1>
+        <h1 style="font-family: sans-serif;">KUMPULAN SITUS GACOR+ ONLINE TERPERCAYA</h1>
     </div>
-    <?php foreach ($situs as $situsKey => $situsValue) { ?>
-        <?php $blink = '';
-        if ($situsValue['populerstatus'] == '1')  $blink = 'blink' ?>
-        <div class="col-sm-2"><a href="<?php echo base_url('Alternatif/' . $situsValue['name']) ?>" class="btn btn-block text-center text-dark <?php echo $blink ?>" style="background-color: yellow;">⭐<?php echo $situsValue['name'] ?>⭐</a></div>
-    <?php } ?>
+    <div class="row">
+        <?php foreach ($situs as $situsKey => $situsValue) { ?>
+            <?php $blink = '';
+            if ($situsValue['populerstatus'] == '1')  $blink = 'blink' ?>
+            <div class="col-sm-2 py-3"><a href="<?php echo base_url('Alternatif/' . $situsValue['name']) ?>" class="btn btn-block text-center text-dark <?php echo $blink ?>" style="background-color: yellow;">⭐<?php echo $situsValue['name'] ?>⭐</a></div>
+        <?php } ?>
+    </div>
+
 </div>
 <div class="py-3"></div>
 <div class="container py-5 rounded" style="background: linear-gradient(90deg, rgba(5,60,78,1) 0%, rgba(8,0,36,1) 50%, rgba(5,60,78,1) 100%);">
