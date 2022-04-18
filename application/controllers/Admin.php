@@ -213,8 +213,6 @@ class Admin extends MY_Controller
 						redirect(base_url($baseUrl . 'List')); //wajib terakhir
 						break;
 					case 'update':
-						print_r($_POST);
-						die;
 						$this->update($tableName, $this->dataForm($formData), array('pkey' => $_POST['pkey']));
 						$this->updateDetail($tableDetail, $formDetail, $detailRef, $id);
 						foreach ($formFile as $formFileKey => $formFileValue) {
@@ -569,9 +567,7 @@ class Admin extends MY_Controller
 			$_POST['password'] = '';
 		}
 		$selVal = $this->getDataRow('role', '*', '', '', '', 'name ASC');
-		$selValClass = $this->getDataRow('class', '*', '', '', '', 'name ASC');
 
-		$data['html']['selValClass'] = $selValClass;
 		$data['html']['baseUrl'] = $baseUrl;
 		$data['html']['selVal'] = $selVal;
 		$data['html']['title'] = 'Input Data ' . __FUNCTION__;

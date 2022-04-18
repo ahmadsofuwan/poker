@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 30 Mar 2022 pada 12.23
+-- Waktu pembuatan: 05 Apr 2022 pada 08.58
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.2
 
@@ -43,7 +43,8 @@ CREATE TABLE `account` (
 
 INSERT INTO `account` (`pkey`, `username`, `name`, `password`, `role`, `img`) VALUES
 (1, 'admin', 'yayan', '0192023a7bbd73250516f069df18b500', 1, ''),
-(5, 'yayan1', 'Guru', '0192023a7bbd73250516f069df18b500', 2, '');
+(5, 'yayan1', 'Guru', '0192023a7bbd73250516f069df18b500', 2, ''),
+(6, 'yt', 'yt', 'fa0ed5b5c600145bdd9a299952b99651', 2, '');
 
 -- --------------------------------------------------------
 
@@ -68,7 +69,8 @@ CREATE TABLE `ads` (
 INSERT INTO `ads` (`pkey`, `name`, `status`, `createon`, `time`, `img`, `link`) VALUES
 (5, 'aaaaaaaaaaaaa', 1, 1, '1648561807', '1648561807.gif', 'aasscscascasc'),
 (6, 'testing', 1, 1, '1648562017', '1648562017.gif', 'aaaa'),
-(7, 'araa', 1, 1, '1648562981', '1648562981.gif', 'https://www.youtube.com/');
+(7, 'araa', 1, 1, '1648562981', '1648562981.gif', 'https://www.youtube.com/'),
+(8, 'asca', 1, 1, '1649067527', '1649067527.gif', 'scasc');
 
 -- --------------------------------------------------------
 
@@ -212,7 +214,12 @@ CREATE TABLE `situs` (
 --
 
 INSERT INTO `situs` (`pkey`, `name`, `status`, `populerstatus`, `createon`, `time`, `logoimg`, `populerimg`, `bannerimg`, `registerimg`, `bonusimg`, `promoimg`, `content`, `country`, `deposit`, `viadeposit`, `platform`, `loginlink`, `registerlink`, `bonuslink`, `promolink`, `head`) VALUES
-(6, 'testing lop', 1, 1, 1, '1648631823', '1648555816logoimg.jpg', '1648554540populerimg.jpg', '1648554540bannerimg.jpg', '1648554540registerimg.jpg', '1648554540bonusimg.jpg', '1648554540promoimg.png', 'aaaaa', 'indonesi', '12300', '12ascsacs', 'acsascacs', 'https://www.youtube.com/', 'https://www.youtube.com/', 'https://www.youtube.com/', 'https://www.youtube.com/', 'coba saja');
+(6, 'testing lop', 1, 1, 1, '1648641472', '1648555816logoimg.jpg', '1648554540populerimg.jpg', '1648554540bannerimg.jpg', '1648554540registerimg.jpg', '1648554540bonusimg.jpg', '1648554540promoimg.png', 'aaaaa', 'indonesi', '12300', '12ascsacs', 'acsascacs', 'https://www.youtube.com/', 'https://www.youtube.com/', 'https://www.youtube.com/', 'https://www.youtube.com/', ''),
+(24, 'ascaaa', 1, 1, 1, '1648810940', '1648645183logoimg.png', '1648645183populerimg.png', '1648645183bannerimg.png', '1648645183registerimg.png', '1648645183bonusimg.png', '1648645183promoimg.png', 'ascasc', 'ascasca', '56400000', 'asca', 'sasca', 'swda', 'scasc', 'ascas', 'cascasc', 'scas'),
+(25, 'zacasc', 1, 1, 1, '1648729972', '1648729972logoimg.png', '1648729972populerimg.png', '1648729972bannerimg.png', '1648729972registerimg.png', '1648729972bonusimg.png', '1648729972promoimg.png', 'ascasc', 'asca', '6510', 'ascasc', 'asc', 'asca', 'sca', 'scasca', 'sc', 'ascas'),
+(26, 'asc', 1, 1, 1, '1648730010', '1648730010logoimg.png', '1648730011populerimg.png', '1648730011bannerimg.png', '1648730011registerimg.png', '1648730011bonusimg.png', '1648730011promoimg.png', 'ascasc', 'asca', '56200000', 'ascas', 'casc', 'ascas', 'casc', 'asca', 'scasc', 'asasc'),
+(27, 'asc444', 1, 1, 1, '1648810947', '1648736765logoimg.png', '1648736765populerimg.png', '1648736765bannerimg.png', '1648736765registerimg.png', '1648736765bonusimg.png', '1648736765promoimg.png', 'cascasc', 'ascasc', '123000', 'scxa', 'scasc', 'aca', 'sca', 'scasc', 'ascasc', 'ascas'),
+(28, 'as1111112', 1, 0, 1, '1648810955', '1648736859logoimg.png', '1648736859populerimg.png', '1648736859bannerimg.png', '1648736859registerimg.png', '1648736860bonusimg.png', '1648736860promoimg.png', 'ascasc', 'ascas', '64200000000', 'ascasc', 'ascas', 'asc', 'asas', 'cascasca', 'scasc', 'cascasc');
 
 --
 -- Indexes for dumped tables
@@ -274,13 +281,13 @@ ALTER TABLE `situs`
 -- AUTO_INCREMENT untuk tabel `account`
 --
 ALTER TABLE `account`
-  MODIFY `pkey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `pkey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `ads`
 --
 ALTER TABLE `ads`
-  MODIFY `pkey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `pkey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `banner`
@@ -316,7 +323,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT untuk tabel `situs`
 --
 ALTER TABLE `situs`
-  MODIFY `pkey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `pkey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

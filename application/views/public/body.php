@@ -40,9 +40,9 @@
 
                     <div class="col-sm-<?php echo  $colSm ?> py-5">
                         <div class="row">
-                            <div class="col-sm-12"><img src="<?php echo base_url('uploads/' . $situsPopuler[$i]['populerimg']) ?>" class="rounded mx-auto d-block" alt="IMG" style="max-width: 300px;"></div>
+                            <div class="col-sm-12"> <a href="<?php echo base_url('Alt/' . $situsPopuler[$i]['name']) ?>"><img src="<?php echo base_url('uploads/' . $situsPopuler[$i]['populerimg']) ?>" class="rounded mx-auto d-block" alt="IMG" style="max-width: 300px;"></a></div>
                             <div class="col-sm-12 text-center py-3"><b>⭐<?php echo $situsPopuler[$i]['name'] ?>⭐</b></div>
-                            <div class="col-sm-12 text-center"><a href="<?php echo base_url('Alternatif/' . $situsPopuler[$i]['name']) ?>" class="btn text-center text-dark blink" style="background-color: yellow;">Login & Daftar</a></div>
+                            <div class="col-sm-12 text-center"><a href="<?php echo base_url('Alt/' . $situsPopuler[$i]['name']) ?>" class="btn text-center text-dark blink" style="background-color: yellow;">Login & Daftar</a></div>
                         </div>
                     </div>
                 <?php } ?>
@@ -69,7 +69,7 @@
             <?php $blink = '';
             if ($situs[$i]['populerstatus'] == '1')  $blink = 'blink'; ?>
 
-            <div class="col-sm-3 py-3"><a href="<?php echo base_url('Alternatif/' . $situs[$i]['name']) ?>" class="btn btn-block text-center text-dark <?php echo $blink ?>" style="background-color: yellow;">⭐<?php echo $situs[$i]['name'] ?>⭐</a></div>
+            <div class="col-sm-3 py-3"><a href="<?php echo base_url('Alt/' . $situs[$i]['name']) ?>" class="btn btn-block text-center text-dark <?php echo $blink ?>" style="background-color: yellow;">⭐<?php echo $situs[$i]['name'] ?>⭐</a></div>
         <?php } ?>
     </div>
 
