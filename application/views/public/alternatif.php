@@ -2,9 +2,9 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="row">
-                <div class="col-sm-4 py-2"><a href="<?php echo base_url() ?>"><img src="<?php echo base_url('uploads/' . $situs['logoimg']) ?>" class="img-fluid" alt="Logo"></a></div>
-                <div class="col-sm-4 py-2"><a href="<?php echo $situs['loginlink'] ?>" class="btn btn-block text-white blink" style="background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);" target="_blank">Login</a></div>
-                <div class="col-sm-4 py-2"><a href="<?php echo $situs['registerlink'] ?>" class="btn btn-block text-white blink" style="background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);text-decoration: blink" target="_blank">Daftar</a></div>
+                <div class="col-sm-4 py-2"><a href="<?php echo base_url('Alt/' . $situs['name']) ?>"><img src="<?php echo base_url('uploads/' . $situs['logoimg']) ?>" class="img-fluid" alt="Logo"></a></div>
+                <div class="col-sm-4 py-2"><a href="<?php echo $situs['loginlink'] ?>" class="btn btn-block text-white blink " style="background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);font-weight: 900" target="_blank">Login</a></div>
+                <div class="col-sm-4 py-2"><a href="<?php echo $situs['registerlink'] ?>" class="btn btn-block text-white blink" style="background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);text-decoration: blink;font-weight: 900" target="_blank">Daftar</a></div>
             </div>
             <div class="row py-2">
                 <div class="col-sm-12 border border-warning text-center rounded"><b>SELAMAT DATANG DI LINK ALTERNATIF <?php echo strtoupper($situs['name']) ?></b></div>
@@ -72,7 +72,19 @@
                                 </tr>
                             </table>
                         </div>
+                        <div class="col-sm-12 border-success border-bottom mt-1">
+                            <table>
+                                <tr>
+                                    <td>RTP</td>
+                                    <td style="width: 10px;">:</td>
+                                    <td><?php echo $situs['rtp'] ?></td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
+                </div>
+                <div class="col-sm-12 mt-4">
+                    <a href="<?php echo base_url() ?>"><button class="btn btn-block" style="height: 50px;font-weight: 900;background-color: yellow;color: black;"><i class="fas fa-home"></i> Home</button></a>
                 </div>
                 <div class="col-sm-12 mt-5">
                     <div class="container border border-danger rounded">
@@ -97,8 +109,8 @@
 <div class="container">
     <div class="row">
         <?php foreach ($ads as $adsKey => $adsValue) { ?>
-            <div class="col-sm-6">
-                <a href="<?php echo $adsValue['link'] ?>" target="_blank"><img src="<?php echo base_url('uploads/' . $adsValue['img']) ?>" class="img-thumbnail" alt="Ads"></a>
+            <div class="col-sm-6 py-1">
+                <a href="<?php echo $adsValue['link'] ?>" target="_blank"><img src="<?php echo base_url('uploads/' . $adsValue['img']) ?>" alt="Ads" style="width: 100%;border-radius: 10px;border-style: solid;border-color:yellow"></a>
             </div>
         <?php } ?>
     </div>
@@ -106,5 +118,5 @@
 <div class="my-5"></div>
 
 <div class="footer row">
-    <div class="col-sm-12 my-2">Powe By <?php echo $situs['name'] ?></div>
+    <div class="col-sm-12 my-2"><a href="<?php echo base_url() ?>" class="text-light">Power By Slot Gacor</a></div>
 </div>

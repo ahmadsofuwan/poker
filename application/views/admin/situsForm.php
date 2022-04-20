@@ -49,6 +49,12 @@ if ($action == 'update')
 					<input type="text" class="form-control" id="platform" name="platform" placeholder="Windows, IOS, Android">
 				</div>
 			</div>
+			<div class="form-group row">
+				<label for="rtp" class="col-sm-3 col-form-label">RTP</label>
+				<div class="col-sm">
+					<input type="text" class="form-control" id="rtp" name="rtp" placeholder="RTP">
+				</div>
+			</div>
 
 			<div class="form-group row">
 				<label for="head" class="col-sm-3 col-form-label">Head SEO</label>

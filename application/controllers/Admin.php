@@ -162,6 +162,7 @@ class Admin extends MY_Controller
 			'registerlink' => 'registerLink',
 			'bonuslink' => 'bonusLink',
 			'promolink' => 'promoLink',
+			'rtp' => 'rtp',
 		);
 		$formFile = array(
 			'logoimg' => 'logoImg',
