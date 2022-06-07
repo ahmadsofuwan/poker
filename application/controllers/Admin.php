@@ -314,7 +314,7 @@ class Admin extends MY_Controller
 		}
 
 		$data['html']['baseUrl'] = $baseUrl;
-		$data['html']['title'] = 'Input Data Transaksi Deposit';
+		$data['html']['title'] = 'Input Data Seo';
 		$data['html']['err'] = $this->genrateErr();
 		$data['url'] = 'admin/' . __FUNCTION__ . 'Form';
 		$this->template($data);
