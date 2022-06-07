@@ -100,12 +100,14 @@
         text-align: center;
     }
 </style>
-<div class="row mr-1 ml-1" style="position: fixed;bottom: 50px;" id="sticky-ad">
+<div class="row" style="position: fixed;bottom: 50px;margin-left: 10%;margin-right: 10%;" id="sticky-ad">
     <button class="text-light close-ads" aria-label="Close this ad" style="position: absolute; width: 28px; height: 28px; top: -28px; right: 0; border: none; border-radius: 12px 0 0 0;background: none;">X</button>
-    <?php foreach ($ads as $adsKey => $adsValue) { ?>
-        <div class="col-sm-6 py-1">
-            <a href="<?php echo $adsValue['link'] ?>" target="_blank"><img src="<?php echo base_url('uploads/' . $adsValue['img']) ?>" class="" alt="Ads" style="width: 100%;border-radius: 10px;border-style: solid;border-color:yellow"></a>
-        </div>
+    <?php for ($i = 0; $i <= 3; $i++) { ?>
+        <?php if (!empty($ads[$i])) { ?>
+            <div class="col-sm-6 py-1">
+                <a href="<?php echo $ads[$i]['link'] ?>" target="_blank"><img src="<?php echo base_url('uploads/' . $ads[$i]['img']) ?>" class="" alt="Ads" style="width: 100%;border-radius: 10px;border-style: solid;border-color:yellow"></a>
+            </div>
+        <?php } ?>
     <?php } ?>
 </div>
 <div class="footer row">
